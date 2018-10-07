@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 # 数据的准备
-
+# 注意将目录改成你的数据目录
 # 处理训练图片
 def getImage ():
     imgs = np.zeros([60000,784],int)
@@ -63,16 +63,6 @@ def getTestLabels():
     labs = []
     labs = struct.unpack_from('>'+str(num)+'B',buf1,index)
     return labs
-
-
-
-# # compute probability
-# def calculate_probability(img,label):
-#     pass
-
-# def getProbabilityOfNum(number):
-#     pass
-
 
 
 
@@ -135,17 +125,6 @@ def getResult(features,p_num,p_feature_num):
     return result
 
 
-    # pro 得到 features 对应为 i 的概率
-    # result 得到 图片上最可能的数字
-
-    # pro = getProbability(features,0)
-    # result = 0
-    # for i in range(10):
-    #     temp = getProbability(features,i)
-    #     if pro < temp:
-    #         pro = temp
-    #         result = i
-    # return result
 
 # 得到错误率，也就是让 真实label和预测的去比
 def getErrorRate(test_images,test_labels,p_num,p_feature_num):
@@ -199,23 +178,6 @@ def main():
     print("-------先验概率计算完成-------")
 
     print("-------开始计算条件概率-------")
-    # 被注释掉的地方，可以看得出 错误点在哪 p_feature_num 初始化不应该设定为int 因为概率是小数
-    '''
-    p_feature_num = np.zeros([10,784],int)
-    for i in tqdm(range(10)):
-        cont = train_labels.count(i)
-        for j in range(784):
-            # 加1 防止个数为0
-            pof = getProbabilityOfFeature(train_images, train_labels, i, j,cont)
-            temp = (pof + 1) / (cont+1)
-            p_feature_num[i,j] = temp
-            print('i:',end='')
-            print(i,end='')
-            print("j:",end='')
-            print(j,end='')
-            print("条件概率")
-            print(temp)
-    '''
 
     p_feature_num = np.zeros([10, 784])
     for i in tqdm(range(10)):
@@ -250,29 +212,11 @@ def main():
 
     print("计算正确率")
     error_rate = getErrorRate(test_images,test_labels,p_num,p_feature_num)
-    #
     print('正确率是 %f ' % ((1-error_rate)*100),end='')
     print('%')
 
 
 
 
-
-# 测试
-def test():
-    # print(2/3)
-    with open("d:\\data\\train-labels.idx1-ubyte",'rb') as f2:
-        tt = f2.read()
-
-    m = struct.calcsize("II")
-    ll = []
-    ll = struct.unpack_from(">2B",tt,8)
-    print(ll)
-    print(m)
-
-
-
 if __name__ == '__main__':
      main()
-    # test()
-    # getImage()
