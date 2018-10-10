@@ -7,9 +7,9 @@
 - 第2个方法中，不进行归一化（normalization），激活函数时relu时，正确率很低，改学习率也没啥用，但同样不归一化，激活函数为sigmoid的时候，正确率为0.9234
 - 第2个方法中，不归一化，激活函数为sigmoid的时候，梯度下降SGD改为adam，你会发现前期loss的下降会很快，正确率还不错0.9616
 - dropout需要加载每个hidden layer的后面，缺点是train的性能会变差
-'''
+'
 model.add(Dropout(0.5))
-'''
+'
 
 
 
